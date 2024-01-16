@@ -2,15 +2,18 @@ package com.yedam.app.emp.service;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
 //vo 클래스는 무조건 data 어노테이션을 사용해야한다.
 public class EmpVO {
-	private int employeeId; //언더바 쓰면 데이터를 다 못 담을수 있다.그리고 컬럼명반드시 뒤에 대문자
+	private Integer employeeId; //언더바 쓰면 데이터를 다 못 담을수 있다.그리고 컬럼명반드시 뒤에 대문자
 	private String firstName;
 	private String lastName;
 	private String email;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date hireDate;
 	private String jobId;
 	private double salary;
@@ -84,7 +87,5 @@ public class EmpVO {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-	
-	
 	
 }
