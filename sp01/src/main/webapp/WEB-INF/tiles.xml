@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+     <definition name="mainTemplate" template="/WEB-INF/views/layout/default_layout.jsp">
+     <put-attribute name="header" value="/WEB-INF/views/layout/default_header.jsp"></put-attribute>
+     <put-attribute name="footer" value="/WEB-INF/views/layout/default_footer.jsp"></put-attribute>
+     </definition>
+
+	<!-- 미리 definition 안에 공통적인것들을 설정 후 extends 로 상속받아 완성되지 않은 content를 어떤식으로 
+		처리할지 추가적으로 설정. 아스타를 기준으로 특정 포맷을 설정하면 경로를 사용할 수 있다. -->
+     <definition name="*/*" extends="mainTemplate">
+       <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
+       </definition>
+       
+       <!-- home 경로까지 적용될려면 추가해야함 -->
+      <definition name="home" extends="mainTemplate">
+       <put-attribute name="content" value="/WEB-INF/views/home.jsp"></put-attribute>
+       </definition>
+       
+</tiles-definitions>

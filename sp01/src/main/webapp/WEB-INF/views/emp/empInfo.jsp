@@ -34,10 +34,11 @@
 		<div>
 			<button type="button" onclick="location.href='empList'">목록으로</button>
 			<button type="button" id="updateBtn">수정</button>
-			<button type="button">삭제</button>
+			<button type="button" onclick="location.href='empDelete?eid=${empInfo.employeeId}'">삭제</button>
 		</div>
 	</form>
 	<script>
+		//querySelector : 어떤 속성을 가지고 올지
 		document.querySelector('#updateBtn').addEventListener('click', updateEmpInfo);
 		
 		function updateEmpInfo(event){
@@ -45,7 +46,7 @@
 			let empInfo = getEmpInfo();
 			console.log(empInfo);
 			//해당정보를 기반으로 ajax
-			//- QueryString
+			//- QueryString : key = value&key=value... / URLSearchParams 랑 QueryString 이랑 같이 사용된다.
 			fetch('empUpdate',{
 				method : 'post',
 				body : new URLSearchParams(empInfo)
@@ -54,18 +55,42 @@
 			.then(result =>{
 				console.log('QueryString', result)
 			}).catch(err => console.log(err));
+		//json : {"key" : "value", "key" : "value", ...} 구조상 반드시 post
+			fetch('empUpdateAjax',{
+				method : 'post',
+				headers : {
+					'content-type' : 'application/json' //content-type 이라는걸 알려줘야한다. / application/json : 통신상의 규칙으로 절대 변경하지 않고 이대로 작성해야한다.
+				},
+					body : JSON.stringify(empInfo)
+			})
+			.then(response => response.json())
+			.then(result =>{
+				console.log('JSON', result)
+			}).catch(err => console.log(err));
+		
+		
+		
+		
 		}
 		
+		
+		
+		
+		
 		function getEmpInfo(){
-			let inputList = document.querySelectorAll('form input'); //form 태그 내부에 있는 input 태그를 검색함. 다만 통신용은 아님.
+			//form 태그 내부에 있는 input 태그를 검색함. form 과 input 사이의 공백은 하위요소를 뜻한다. 다만 통신용은 아님.
+			let inputList = document.querySelectorAll('form input'); 
 			
 			let objData = {};
 			inputList.forEach(tag =>{
-				objData[tag.name] = tag.value; //form 태그에 name 속성을 필드명으로 지정해서 값을 불러오도록 함.
+				objData[tag.name] = tag.value; // ->form 태그에 name 속성을 필드명으로 지정해서 값을 불러오도록 함. 배열이 아닌 객체기 때문에 puhs는 올수없다.
 			});
 			
 			return objData;
 		}
+		
+		
+		
 		
 	</script>
 </body>
