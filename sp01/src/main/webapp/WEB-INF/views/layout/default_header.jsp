@@ -13,6 +13,10 @@
     <a class="nav-link" href="${pageContext.request.contextPath }/empInsert">사원 정보 등록 </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-  </li>
+    <a class="nav-link" href="${pageContext.request.contextPath }/boardList">게시판 전체조회</a>
+<%--   </li>
+   <li class="nav-item">
+    <a class="nav-link" href="${pageContext.request.contextPath }/boardInsert">게시판 정보등록</a>
+  </li> --%>
+  
 </ul>

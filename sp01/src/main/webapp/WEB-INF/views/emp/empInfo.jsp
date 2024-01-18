@@ -63,7 +63,7 @@
 				},
 					body : JSON.stringify(empInfo)
 			})
-			.then(response => response.json())
+			.then(response => response.json())  //제이쿼리를 사용하는 경우 제이쿼리는 어떤 타입으로 받을지를 알아서 해주기때문에 따로 적어주지않는다.
 			.then(result =>{
 				console.log('JSON', result)
 			}).catch(err => console.log(err));

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.yedam.app.board.mapper.BoardMapper">
+  <!-- 전체조회 -->
+  <select id="selectBoardList" resultType="BoardVO">
+  	SELECT bno, title, contents, writer, regdate ,updatedate ,image
+  	FROM tbl_board_01
+  	ORDER BY bno
+  </select>
+  
+  
+  <!-- 단건조회 -->
+  <select id="selectBoardInfo" resultType="BoardVO">
+  	SELECT bno, title, contents, writer, regdate ,updatedate ,image
+  	FROM tbl_board_01
+  	WHERE bno = #{bno}
+  </select>
+  
+  <!-- 등록 -->
+  <insert id="insertBoard" parameterType="BoardVO">
+  	<selectKey keyProperty="bno" resultType="integer" order="BEFORE">
+  		SELECT NVL(MAX(bno), 0) + 1  <!-- nvl : bno값을 자동 부여하기 위해 사용 / max : 그룹함수로 비어있는 테이블에 대해서 null값을 반환하며 기본적으로 null은 배제시킴. 현재 초기값에서 +1부터 시작 -->
+  		FROM tbl_board_01
+  	</selectKey>
+  	INSERT INTO tbl_board_01 (
+  	bno, title, contents, writer, image
+  	)VALUES(
+  		#{bno}, #{title}, #{contents}, #{writer}, #{image}
+  	)
+  	
+  </insert>
+  
+  <!-- 수정 -->
+  <update id="updateBoard" parameterType="BoardVO">
+  	UPDATE tbl_board_01
+  	SET title=#{title}, contents=#{contents}, writer=#{writer}, updatedate=sysdate, image=#{image}
+  	WHERE bno=#{bno}
+  
+  </update>
+  
+  <!-- 삭제 -->
+  <delete id="deleteBoard" parameterType="int">
+  	DELETE FROM tbl_board_01
+		WHERE bno = #{bno}
+  </delete>
+  </mapper>

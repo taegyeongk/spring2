@@ -13,11 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.yedam.app.board.mapper.BoardMapper;
+import com.yedam.app.board.service.BoardVO;
 import com.yedam.app.emp.mapper.EmpMapper;
 import com.yedam.app.emp.service.EmpVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/*-context.xml")
 public class MapperTest {
 	
 	@Autowired
@@ -80,5 +82,59 @@ public class MapperTest {
 		int result = empMapper.deleteEmpInfo(207);
 		assertNotEquals(result, 0);
 	}
+	
+	@Autowired
+	BoardMapper boardMapper;
+	//board
+	//전체조회
+	//@Test
+	public void selectBoardAll() {
+		List<BoardVO> list = boardMapper.selectBoardList();
+		assertTrue(!list.isEmpty());
+	}
+	
+	//단건조회 
+	//@Test
+	public void selectBoardInfo() {
+		BoardVO boardVO = new BoardVO();
+		boardVO.setBno(1);
+		BoardVO findVO = boardMapper.selectBoardInfo(boardVO);
+		assertEquals(findVO.getTitle(), "게시글1");
+	}
+	
+	//등록 
+	//@Test
+		public void insertBoard() {
+			BoardVO boardVO = new BoardVO();
+			boardVO.setTitle("게시글1");
+			boardVO.setContents("내용");
+			boardVO.setWriter("작성자");
+			boardVO.setImage(null);
+			
+			int result = boardMapper.insertBoard(boardVO);
+			assertNotEquals(result, 0);
+		}
+	
+	//수정
+		//@Test
+		public void updateBoard() {
+			BoardVO boardVO = new BoardVO();
+			boardVO.setBno(1);
+			BoardVO findVO = boardMapper.selectBoardInfo(boardVO);
+			findVO.setTitle("게시글1수정");
+			int result = boardMapper.updateBoard(findVO);
+			assertNotEquals(result, 0);
+		}
+	
+	//삭제
+	//@Test
+	public void deleteBoard() {
+		int result = boardMapper.deleteBoard(1);
+		assertNotEquals(result, 0);	
+	}
+	
+	
+	
+	
 	
 }
