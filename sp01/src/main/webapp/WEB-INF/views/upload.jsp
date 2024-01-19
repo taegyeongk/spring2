@@ -51,7 +51,10 @@
                contentType: false,	// multipart/form-data타입을 사용하기위해 false 로 지정합니다. 무력화
                data: formData,               
                success: function(result){
-                   console.log(result);
+				$(result).each((idx, path) =>{
+					let tag = $('<img/>').attr('src', "${pageContext.request.contextPath}/images/"+path);
+					$('div').append(tag);
+				})
                },
                error: function(reject){	
                    console.log(reject);
