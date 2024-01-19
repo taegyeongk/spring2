@@ -16,7 +16,7 @@ public interface BoardService {
 	//수정
 	public Map<String, Object> updateBoard(BoardVO boardVO);	
 	//삭제
-	public boolean deleteBoard(int BoardNo);
+	public boolean deleteBoard(int boardNo);
 	
 	
 	

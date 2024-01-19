@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="container">
 	<h1>게시글 조회</h1>
-	<table>
+	<table class="table">
 		<tr>
 			<th>게시글번호</th> <!-- info컨트롤러에서 담은 변수명으로 데이터를 불러온다. -->
 			<td>${ boardInfo.bno }</td>
@@ -26,9 +26,11 @@
 		</tr>
 		<tr>
 			<th>이미지</th>
-			<td><img src="<c:url value="/resources/${boardInfo.image }"/>"></td>
+			<td><img style="width:300px;" src="<c:url value="/resources/${boardInfo.image }"/>"></td>
 		</tr>
 	</table>
-	<button type="button">수정</button>
-	<button type="button">삭제</button>
+	<button type="button" onclick="location.href='boardUpdate?bno=${boardInfo.bno}'">수정</button> 
+	<!--  -> update에서도 단건조회인 getboardInfo 라는 같은 코드가 돌고있음. -->
+	<button type="button" onclick="location.href='boardDelete?bno=${boardInfo.bno}'">삭제</button>
+	<!--  -> 삭제는 변수명이 key 값이 되어야한다. -->
 </div>

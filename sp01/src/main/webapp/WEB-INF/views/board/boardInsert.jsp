@@ -4,7 +4,7 @@
 	<h1>게시글 등록</h1>
 	<form name="insertForm" action="boardInsert" method="post">
 	<!--  not null 제약조건을 생각하고 해야한다. -->
-		<table>
+		<table class="table">
 			<tr>
 				<th>제목</th>
 				<td><input type="text" name="title"></td>

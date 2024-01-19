@@ -28,7 +28,7 @@
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
-	<beans:bean id="tilesConfigurer"
+<!-- 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<beans:property name="definitions">
 			<beans:list>
@@ -39,11 +39,11 @@
 	<beans:bean id="tilesViewResolver"
 		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
 		<beans:property name="order" value="1"/>
-	</beans:bean>
+	</beans:bean> -->
 
-	<context:component-scan
-		base-package="com.yedam.app" />
-
+	<context:component-scan	base-package="com.yedam.app" use-default-filters="false">
+		<context:include-filter type="annotation" expression="import org.springframework.stereotype.Controller"/><!-- 어떠한 대상만을 필터해서 데리고 올지 -->
+	</context:component-scan>
 
 
 </beans:beans>
