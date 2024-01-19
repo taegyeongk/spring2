@@ -10,14 +10,16 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
-
+	<context:property-placeholder location="classpath:path.properties"/>
+	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-
+	<resources mapping="/images/**" location="${file.loading.path}" />
+	
 	<!-- jsp 파일을 처리하는 부분을 알려줌. 필요에 따라서 하나 이상이 될 수 있다. -->
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -28,7 +30,7 @@
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
-<!-- 	<beans:bean id="tilesConfigurer"
+	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<beans:property name="definitions">
 			<beans:list>
@@ -38,11 +40,13 @@
 	</beans:bean>
 	<beans:bean id="tilesViewResolver"
 		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
-		<beans:property name="order" value="1"/>
-	</beans:bean> -->
+		<beans:property name="order" value="2"/>
+	</beans:bean>
+	
+	<beans:bean id="MultipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
 
 	<context:component-scan	base-package="com.yedam.app" use-default-filters="false">
-		<context:include-filter type="annotation" expression="import org.springframework.stereotype.Controller"/><!-- 어떠한 대상만을 필터해서 데리고 올지 -->
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/><!-- 어떠한 대상만을 필터해서 데리고 올지 -->
 	</context:component-scan>
 
 

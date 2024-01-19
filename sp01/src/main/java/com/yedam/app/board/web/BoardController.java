@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yedam.app.board.service.BoardService;
 import com.yedam.app.board.service.BoardVO;
 
-import oracle.jdbc.proxy.annotation.Post;
-
 @Controller
 public class BoardController {
 	@Autowired

@@ -28,14 +28,23 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+
+
+		<multipart-config>
+			<max-file-size>20971520</max-file-size>
+			<max-request-size>20971520</max-request-size>
+			<file-size-threshold>0</file-size-threshold>
+		</multipart-config>
 	</servlet>
+
 
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
-	<!-- filter : client 가 요청이 들어올 때 디스패치를 반드시 거쳐서 오는 구간  / 서블릿에서 매핑되는  필터는 반드시 슬래시가 있어야하며, 인코딩에서 매핑되는 필터는 반드시 아스타가 붙어있어야한다. -->
+
+	<!-- filter : client 가 요청이 들어올 때 디스패치를 반드시 거쳐서 오는 구간 / 서블릿에서 매핑되는 필터는 반드시 
+		슬래시가 있어야하며, 인코딩에서 매핑되는 필터는 반드시 아스타가 붙어있어야한다. -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

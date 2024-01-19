@@ -44,7 +44,7 @@
 	<mybatis-spring:scan
 		base-package="com.yedam.app.**.mapper" />
 
-	
+	<!-- 트랜잭션 할 때 무조건 추가해야한다. -->
 	<tx:annotation-driven/>
 
 </beans>
