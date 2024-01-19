@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.yedam.java.book.mapper.BookMapper">
+	<!-- 전체조회 -->
+	<select id="selectBookList" resultType="BookVO">
+		Select book_no, book_name, book_coverimg, book_date, book_price,
+		book_publisher, book_info
+		FROM book_tbl_06
+		ORDER BY book_no
+	</select>
+
+
+	<select id="selectBookInfo" resultType="BookVO">
+		SELECT book_no,
+		book_name, book_coverimg, book_date, book_price, book_publisher,
+		book_info
+		FROM
+		book_tbl_06
+		WHERE WHERE book_no=#{bookno}
+
+
+	</select>
+
+	<insert id="insertBook" parameterType="BookVO">
+		<selectKey keyProperty="bookno" resultType="int"
+			order="BEFORE">
+			SELECT NVL(MAX(book_no), 0) +1
+			FROM book_tbl_06
+		</selectKey>
+		INSERT INTO book_tbl_06(book_no, book_name, book_coverimg, book_date,
+		book_price, book_publisher, book_info)
+		VALUES (#{bookno}, #{bookname}, #{bookcoverimg}, #{bookdate}, #{bookprice},
+		#{bookpublisher}, #{bookinfo})
+	</insert>
+
+	<update id="updateBook" parameterType="BookVO">
+		UPDATE book_tbl_06
+		SET book_name=#{bookname}, book_coverimg=#{bookcoverimg},
+		book_date=#{bookdate}, book_price=#{bookprice},
+		book_publisher=#{bookpublisher}, book_info=#{bookinfo}
+		WHERE book_no=#{bookno}
+	</update>
+
+	<select id="selectRentList" resultType="BookRentVO">
+		select distinct b.book_no, b.book_name, sum(r.rent_price) over (partition by
+		b.book_no) as sum,
+		sum(r.rent_status) over (partition by b.book_no) as count
+		from book_tbl_06 b join rent_tbl_06 r on b.book_no = r.book_no
+		order by b.book_no
+	</select>
+
+
+
+</mapper>
