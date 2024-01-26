@@ -1,28 +1,75 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8">
 <title>empList.html</title>
+<style>
+.odd {
+	background-color: beige;
+}
+
+.trbold {
+	font-weight: bold;
+}
+</style>
 </head>
 <body>
-<div>전체건수 : [[  ${#lists.size(list)}  ]]</div>
-<div th:text="${#lists.size(list)}"></div>
+<section layout:fragment="content">
+	<div>전체건수 : [[ ${#lists.size(list)} ]]</div>
+	<div th:text="${#lists.size(list)}"></div>
+
 	<table>
 		<tr>
-		<th>No.</th>
+			<th>No.</th>
 			<th>employee_id</th>
-			<th>first_name</th>
-			<th>last_name</th>
+			<th>name</th>
 			<th>hire_date</th>
-			
+			<th>salary</th>
+			<th>grade</th>
+			<th></th>
+
 		</tr>
-		<tr th:each="emp : ${list}">
-			<td th:text="${empStat.count}"></td>
-			<td th:text="${emp.employeeId}"></td>
-			<td th:text="${emp.firstName}"></td>
-			<td th:text="${emp.lastName}"></td>
-			<td th:text="${emp.hireDate}"></td>
-		</tr>
+		<th:block th:each="emp : ${list}">
+			<tr th:class="${empStat.odd} ? 'odd'"
+				th:classappend="${empStat.first} ? 'trbold'">
+				<!-- class추가 = classappend -->
+				<td th:text="${empStat.count}">1</td>
+				<!-- th:text : innerHtml 과 같은 역할 -->
+				<td><a
+					th:href="@{info.do(employeeId=${emp.employeeId}, name=${emp.firstName})}"
+					th:text="${emp.employeeId}">100</a></td>
+				<td th:text="|${emp.firstName}, ${emp.lastName}|">scott, king</td>
+				<td th:text="${#dates.format(emp.hireDate, 'yyyy-MM')}">2022-01</td>
+				<td th:text="${emp.salary}">1000</td>
+				<td th:if="${emp.salary}>10000" th:text="A">1000</td>
+				<td th:unless="${emp.salary}>10000" th:text="B">2000</td>
+			</tr>
+		</th:block>
+		<!--/* <th:block th:each="emp : ${list}">
+			<span th:text="${emp.firstName}"></span>
+			<span th:text="${emp.lastName}"></span>
+			<br>
+		</th:block> */-->
 	</table>
+	<div th:text="'<b>test</b>'"></div>
+	<div th:utext="'<b>test</b>'"></div>
+	<div>[[ ${ list[0].firstName } ]]</div>
+	<div>[( ${ list[0].firstName } )]</div>
+
+
+	<!-- <div class="divfooter" th:insert="~{footer::copy}"></div>--푸터의 copy클래스 내용만 가져옴
+	<div class="divfooter" th:replace="~{footer::copy}"> </div> -->
+
+
+	</div>
+
+	<script th:inline="javascript"> /* 해당 결과는 F12에서 source가서 확인할 수 있다. */
+		let emps = [[ ${list} ]]
+	
+	</script>
+</section>
+
 </body>
 </html>

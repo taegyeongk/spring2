@@ -12,7 +12,7 @@ public class EmpController {
 	@Autowired
 	EmpMapper empMapper;
 
-	@GetMapping("/empList")
+	@GetMapping("/admin/empList")
 	public String list(Model model) {
 		model.addAttribute("list", empMapper.getEmpList(null));
 		return "empList";
